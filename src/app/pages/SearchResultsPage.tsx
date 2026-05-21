@@ -417,9 +417,9 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
       style={{ background: "linear-gradient(110.53deg, rgba(252,224,254,0.6) 0.21%, rgba(219,228,253,0.6) 69.27%), white" }}
     >
       <div className="flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
-        {/* Left: 3 asset thumbnails 126×126px */}
-        <div className="flex gap-[8px] items-center shrink-0">
-          {BANNER_ASSETS.slice(0, 3).map((src, i) => (
+        {/* Left: asset thumbnails 126×126px — as many as fit */}
+        <div className="flex gap-[8px] items-center overflow-hidden">
+          {BANNER_ASSETS.map((src, i) => (
             <div key={i} className="rounded-[4px] overflow-hidden shrink-0" style={{ width: 126, height: 126 }}>
               <img alt="" src={src} className="w-full h-full object-cover block" />
             </div>
