@@ -5,6 +5,7 @@ import {
   SlidersHorizontal, Star, AlignJustify, Columns3, Grid2x2, LayoutGrid,
   RectangleHorizontal, Check, Plus, Ellipsis, Pencil, Flag, Copy,
   CornerUpRight, Trash2, ChevronRight, ArrowRight, RefreshCw, GripVertical,
+  Sparkles,
 } from "lucide-react";
 import svgPaths from "../../imports/DesktopWorkspacesInsideAWorkspaceAssetSelected/svg-qymjkh6ysf";
 import imgAsset from "../../imports/HomePage/asset-placeholder.jpg";
@@ -32,13 +33,7 @@ const PURPLE_LIGHT = "#b48af6";
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
 function SmartSearchIcon({ color = "#1E1E1E", size = 14 }: { color?: string; size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 13.1299 13.5905" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-      <path d="M5.2002 0.458705C5.73888 0.458705 6.25848 0.540153 6.74707 0.692104L6.4707 1.32687L4.87305 2.05343C4.85795 2.06028 4.84369 2.06928 4.8291 2.07687C3.01593 2.26278 1.60073 3.79588 1.60059 5.65792C1.60059 7.64539 3.21275 9.25845 5.2002 9.25851C6.97933 9.25851 8.4566 7.96583 8.74707 6.26925C8.79134 6.21142 8.83136 6.14948 8.86133 6.08078L9.5752 4.44308L10.1826 4.16769C10.3236 4.63983 10.4004 5.13987 10.4004 5.65792C10.4004 6.80529 10.0278 7.86536 9.40039 8.72531L12.5654 11.8933L13.1299 12.4587L12 13.5905L8.26758 9.85812C7.4076 10.4881 6.34765 10.8581 5.2002 10.8581C2.32775 10.8581 0 8.53039 0 5.65792C0.000158187 2.7856 2.32784 0.458764 5.2002 0.458705ZM7.59375 1.04074C8.0577 1.28165 8.48066 1.59032 8.84961 1.95382L8.87598 2.01437L8.93457 2.04074C9.29838 2.41622 9.60475 2.84668 9.84277 3.31808L8.87598 3.75656L8.58398 4.42648C8.23147 3.45896 7.47505 2.68623 6.51953 2.30929L7.16992 2.01437L7.59375 1.04074Z" fill={color} />
-      <path d="M7.17 2.01387L8.02333 0.0546875L8.87667 2.01387L10.7967 2.88462L8.87667 3.75537L8.02333 5.71455L7.17 3.75537L5.25 2.88462L7.17 2.01387Z" fill={color} />
-      <path d="M11.6724 0L11.2457 0.979592L10.2857 1.41497L11.2457 1.85034L11.6724 2.82993L12.099 1.85034L13.059 1.41497L12.099 0.979592L11.6724 0Z" fill={color} />
-    </svg>
-  );
+  return <Sparkles size={size} color={color} strokeWidth={1.5} className="shrink-0" fill={color} />;
 }
 
 function Logo() {
@@ -95,20 +90,20 @@ interface NavigationProps {
 
 function Navigation({ query, resultCount, onQueryChange, onSearch }: NavigationProps) {
   return (
-    <div className="bg-white flex h-[72px] items-center justify-between px-[40px] py-[12px] shrink-0 sticky top-0 w-full z-20">
+    <div className="bg-white flex h-[72px] items-center justify-between px-[16px] sm:px-[40px] py-[12px] shrink-0 sticky top-0 w-full z-20">
       {/* Left: logo + inline search */}
-      <div className="flex flex-1 gap-[40px] items-center min-w-0 pr-[40px]">
+      <div className="flex flex-1 gap-[16px] sm:gap-[40px] items-center min-w-0 pr-[16px] sm:pr-[40px]">
         <Link to="/" className="shrink-0"><Logo /></Link>
 
         <div className="flex flex-1 gap-[24px] items-center min-w-0">
           <div className="flex flex-1 gap-[12px] items-center min-w-0">
-            {/* Search-in selector */}
-            <button className="flex items-center gap-[4px] p-[12px] rounded-[4px] shrink-0 hover:bg-[#f8f8f8] transition-colors">
+            {/* Search-in selector — hidden on mobile */}
+            <button className="hidden sm:flex items-center gap-[4px] p-[12px] rounded-[4px] shrink-0 hover:bg-[#f8f8f8] transition-colors">
               <span style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[14px] whitespace-nowrap">All assets</span>
               <ChevronDown size={14} color="#1e1e1e" strokeWidth={2} />
             </button>
 
-            <div className="flex h-[24px] items-center justify-center w-0 shrink-0">
+            <div className="hidden sm:flex h-[24px] items-center justify-center w-0 shrink-0">
               <div className="flex-none rotate-90">
                 <svg width="24" height="1" fill="none" viewBox="0 0 24 1">
                   <line stroke="#E4E4E4" x2="24" y1="0.5" y2="0.5" />
@@ -136,7 +131,8 @@ function Navigation({ query, resultCount, onQueryChange, onSearch }: NavigationP
             </div>
           </div>
 
-          <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#646464] text-[16px] whitespace-nowrap shrink-0">
+          {/* Result count — hidden on mobile */}
+          <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="hidden md:block text-[#646464] text-[16px] whitespace-nowrap shrink-0">
             {resultCount} results
           </span>
         </div>
@@ -145,15 +141,18 @@ function Navigation({ query, resultCount, onQueryChange, onSearch }: NavigationP
       </div>
 
       {/* Right */}
-      <div className="flex gap-[24px] items-center shrink-0">
-        <Wediatransfer />
-        <NavDivider />
-        <div className="flex gap-[24px] items-center text-[#1e1e1e] text-[16px] text-center whitespace-nowrap" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>
-          <p>{`Boards & Portals`}</p>
-          <p>Upload assets</p>
-          <Link to="/workspace" className="hover:text-[#1b55f5] transition-colors">Workspaces</Link>
+      <div className="flex gap-[16px] sm:gap-[24px] items-center shrink-0">
+        {/* Wediatransfer + nav links — hidden on mobile/tablet */}
+        <div className="hidden lg:flex gap-[24px] items-center shrink-0">
+          <Wediatransfer />
+          <NavDivider />
+          <div className="flex gap-[24px] items-center text-[#1e1e1e] text-[16px] text-center whitespace-nowrap" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>
+            <p>{`Boards & Portals`}</p>
+            <p>Upload assets</p>
+            <Link to="/workspace" className="hover:text-[#1b55f5] transition-colors">Workspaces</Link>
+          </div>
+          <NavDivider />
         </div>
-        <NavDivider />
         <div className="flex gap-[16px] items-center">
           <Bell size={24} color="#1E1E1E" strokeWidth={1.25} />
           <Menu size={24} color="#1E1E1E" strokeWidth={1.25} />
@@ -467,7 +466,7 @@ interface StickySmartCardProps {
 
 function StickySmartCard({ query, onTrySmartSearch }: StickySmartCardProps) {
   return (
-    <div className="fixed bottom-[24px] right-[80px] z-10 flex gap-[12px] items-center">
+    <div className="fixed bottom-[24px] right-[16px] sm:right-[40px] lg:right-[80px] z-10 flex gap-[12px] items-center">
       {/* Gradient AI card */}
       <button
         onClick={onTrySmartSearch}
@@ -825,7 +824,7 @@ export default function SearchResultsPage() {
       {/* ── Sticky section: filter bar + tabs (collapsible) + selection bar ── */}
       <div className="sticky top-[72px] z-10 bg-[#f8f8f8] w-full">
         {/* Filter pills */}
-        <div className="px-[80px] pt-[16px]">
+        <div className="px-[16px] sm:px-[40px] lg:px-[80px] pt-[16px]">
           <FilterBar
             activeFilters={activeFilters}
             onFilterClick={handleFilterClick}
@@ -842,7 +841,7 @@ export default function SearchResultsPage() {
             transition: "max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
-          <div className="px-[80px]">
+          <div className="px-[16px] sm:px-[40px] lg:px-[80px]">
             <TabsRow
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -854,7 +853,7 @@ export default function SearchResultsPage() {
         </div>
 
         {/* Selection / sorting bar — always visible in sticky */}
-        <div className="flex items-center justify-between px-[80px] py-[12px] w-full">
+        <div className="flex items-center justify-between px-[16px] sm:px-[40px] lg:px-[80px] py-[12px] w-full">
           <div className="flex gap-[8px] items-center shrink-0">
             {selectedIds.size > 0 && activeTab !== "portals" ? (
               <>
@@ -897,11 +896,11 @@ export default function SearchResultsPage() {
             </button>
             {activeTab !== "portals" && (
               <>
-                <button className="border border-[#1b55f5] flex gap-[6px] items-center justify-center min-h-[32px] p-[8px] rounded-[4px] shrink-0">
+                <button className="hidden md:flex border border-[#1b55f5] gap-[6px] items-center justify-center min-h-[32px] p-[8px] rounded-[4px] shrink-0">
                   <RectangleHorizontal size={16} color="#1b55f5" strokeWidth={1.5} />
                   <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1b55f5] text-[14px] leading-[18px] whitespace-nowrap">Collapse assets</span>
                 </button>
-                <div className="border border-[#e4e4e4] flex items-start rounded-[4px] shrink-0">
+                <div className="hidden sm:flex border border-[#e4e4e4] items-start rounded-[4px] shrink-0">
                   {[AlignJustify, Columns3, Grid2x2, LayoutGrid].map((Icon, i) => (
                     <button key={i} className={`flex items-center justify-center p-[8px] rounded-[4px] ${i === 3 ? "bg-[#1b55f5]" : "hover:bg-[#f8f8f8]"}`}>
                       <Icon size={16} color={i === 3 ? "white" : "#1e1e1e"} strokeWidth={1.5} />
@@ -915,7 +914,7 @@ export default function SearchResultsPage() {
       </div>
 
       {/* ── Scrollable content ── */}
-      <div className="flex flex-col gap-[24px] items-start px-[80px] pb-[40px] pt-[0px] w-full">
+      <div className="flex flex-col gap-[24px] items-start px-[16px] sm:px-[40px] lg:px-[80px] pb-[40px] pt-[0px] w-full">
 
         {/* ── Classic tab ── */}
         {activeTab === "classic" && (
