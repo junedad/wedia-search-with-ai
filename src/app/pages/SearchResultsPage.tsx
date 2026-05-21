@@ -410,17 +410,41 @@ interface SmartSearchBannerProps {
 
 const BANNER_ASSETS = [imgAsset2, imgAsset3, imgAsset4, imgAsset5, imgAsset6, imgAsset];
 
+const IMG_W = 126;
+const IMG_GAP = 8;
+
 function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
+  const bannerRef = React.useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = React.useState(BANNER_ASSETS.length);
+
+  React.useEffect(() => {
+    const el = bannerRef.current;
+    if (!el) return;
+    // pl(12) + gap(28) + pr(20) + minimum text section width
+    const TEXT_MIN = 280;
+    const CHROME = 12 + 28 + 20 + TEXT_MIN;
+    const update = () => {
+      const available = el.offsetWidth - CHROME;
+      const count = Math.max(1, Math.min(BANNER_ASSETS.length, Math.floor((available + IMG_GAP) / (IMG_W + IMG_GAP))));
+      setVisibleCount(count);
+    };
+    const obs = new ResizeObserver(update);
+    obs.observe(el);
+    update();
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <div
+      ref={bannerRef}
       className="w-full rounded-[8px] overflow-hidden"
       style={{ background: "linear-gradient(110.53deg, rgba(252,224,254,0.6) 0.21%, rgba(219,228,253,0.6) 69.27%), white" }}
     >
       <div className="flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
-        {/* Left: asset thumbnails 126×126px — as many as fit */}
-        <div className="flex gap-[8px] items-center overflow-hidden">
-          {BANNER_ASSETS.map((src, i) => (
-            <div key={i} className="rounded-[4px] overflow-hidden shrink-0" style={{ width: 126, height: 126 }}>
+        {/* Left: asset thumbnails 126×126px — count computed from available width */}
+        <div className="flex gap-[8px] items-center shrink-0">
+          {BANNER_ASSETS.slice(0, visibleCount).map((src, i) => (
+            <div key={i} className="rounded-[4px] overflow-hidden shrink-0" style={{ width: IMG_W, height: IMG_W }}>
               <img alt="" src={src} className="w-full h-full object-cover block" />
             </div>
           ))}
