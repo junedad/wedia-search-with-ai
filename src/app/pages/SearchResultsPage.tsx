@@ -25,7 +25,7 @@ const SCENARIO_CONFIG: Record<Scenario, { classicCount: number; label: string; s
   zero:    { classicCount: 0,  label: "0 results",  sublabel: "→ Smart Search tab" },
   results: { classicCount: 25, label: "Has results", sublabel: "→ Classic tab" },
 };
-const SMART_COUNT = 200;
+const SMART_COUNT = 600;
 const PURPLE = "#813de0";
 const PURPLE_LIGHT = "#b48af6";
 
@@ -383,13 +383,13 @@ function PortalsBanner() {
       {/* Portal cards */}
       <div className="flex gap-[16px] items-start overflow-hidden w-full">
         {PORTALS.map((p) => (
-          <div key={p.title} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px]">
+          <div key={p.title} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px] cursor-pointer hover:shadow-[0_2px_12px_rgba(30,30,30,0.1)] transition-shadow duration-150">
             {/* Thumbnail */}
             <div className="flex flex-col h-[104px] items-start justify-center shrink-0 w-[160px]">
               <img alt="" className="h-full w-full object-cover rounded-[2px]" src={imgAsset} />
             </div>
             {/* Info */}
-            <div className="flex flex-col gap-[16px] flex-1 py-[8px] min-w-0">
+            <div className="flex flex-col justify-between flex-1 py-[16px] min-w-0 self-stretch">
               <p style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-normal overflow-hidden text-ellipsis">{p.title}</p>
               <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-normal whitespace-nowrap">{p.count} assets</p>
             </div>
@@ -411,14 +411,19 @@ const BANNER_ASSETS = [imgAsset2, imgAsset3, imgAsset4, imgAsset5, imgAsset6, im
 function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
   return (
     <div
-      className="w-full rounded-[8px] overflow-hidden"
+      className="w-full rounded-[8px] overflow-hidden cursor-pointer transition-shadow duration-200 hover:shadow-[0_4px_20px_rgba(129,61,224,0.15)]"
       style={{ background: "linear-gradient(110.53deg, rgba(252,224,254,0.6) 0.21%, rgba(219,228,253,0.6) 69.27%), white" }}
+      onClick={onSeeAll}
     >
       <div className="flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
         {/* Left: 6 asset thumbnails 126×126px */}
         <div className="flex gap-[8px] items-center shrink-0">
           {BANNER_ASSETS.map((src, i) => (
-            <div key={i} className="rounded-[4px] overflow-hidden shrink-0" style={{ width: 126, height: 126 }}>
+            <div
+              key={i}
+              className="rounded-[4px] overflow-hidden shrink-0 transition-transform duration-200 hover:scale-[1.03]"
+              style={{ width: 126, height: 126 }}
+            >
               <img alt="" src={src} className="w-full h-full object-cover block" />
             </div>
           ))}
@@ -431,7 +436,7 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
               <SmartSearchIcon color="#1e1e1e" size={16} />
               <span style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-[20px] whitespace-nowrap">Smart search results</span>
               <div className="flex items-center gap-[8px] shrink-0">
-                <span className="bg-white text-[12px] px-[6px] py-[4px] rounded-full text-[#1e1e1e] leading-[15px]" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>40+</span>
+                <span className="bg-white text-[12px] px-[6px] py-[4px] rounded-full text-[#1e1e1e] leading-[15px]" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>{SMART_COUNT}</span>
                 <ChevronRight size={16} color="#1e1e1e" strokeWidth={1.5} />
               </div>
             </div>
@@ -440,8 +445,8 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
             </p>
           </div>
           <button
-            onClick={onSeeAll}
-            className="flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start hover:opacity-80 transition-opacity"
+            onClick={(e) => { e.stopPropagation(); onSeeAll(); }}
+            className="flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start transition-colors duration-150 hover:bg-[#f0f0f0]"
             style={{ border: "1px solid #e4e4e4", color: "#1e1e1e", fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
           >
             <span className="text-[14px] leading-[18px] whitespace-nowrap">See all results</span>
@@ -726,7 +731,7 @@ function Footer() {
 
 const EXTRA_CARDS = 23;
 const ALL_CLASSIC_IDS = [0, 1, ...Array.from({ length: EXTRA_CARDS }, (_, i) => i + 2)];
-const PORTALS_COUNT = 9;
+const PORTALS_COUNT = 8;
 
 export default function SearchResultsPage() {
   const [searchParams] = useSearchParams();
@@ -749,7 +754,7 @@ export default function SearchResultsPage() {
 
   const classicCount = SCENARIO_CONFIG[scenario].classicCount;
   const hasResults = classicCount > 0;
-  const displayCount = activeTab === "classic" ? classicCount : SMART_COUNT;
+  const displayCount = activeTab === "classic" ? classicCount : activeTab === "portals" ? PORTALS_COUNT : SMART_COUNT;
 
   // When scenario changes, reset tab
   React.useEffect(() => {
@@ -851,7 +856,7 @@ export default function SearchResultsPage() {
         {/* Selection / sorting bar — always visible in sticky */}
         <div className="flex items-center justify-between px-[80px] py-[12px] w-full">
           <div className="flex gap-[8px] items-center shrink-0">
-            {selectedIds.size > 0 ? (
+            {selectedIds.size > 0 && activeTab !== "portals" ? (
               <>
                 <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1e1e1e] text-[14px] leading-[18px] whitespace-nowrap">
                   {selectedIds.size} asset{selectedIds.size !== 1 ? "s" : ""} selected
@@ -866,11 +871,13 @@ export default function SearchResultsPage() {
             ) : (
               <>
                 <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1e1e1e] text-[14px] leading-[18px] whitespace-nowrap">
-                  {displayCount} assets
+                  {activeTab === "portals" ? `${displayCount} Portals` : `${displayCount} assets`}
                 </span>
-                <button onClick={selectAll} className="flex items-center justify-center min-h-[32px] p-[8px] rounded-[4px]">
-                  <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-[18px] whitespace-nowrap">Select all</span>
-                </button>
+                {activeTab !== "portals" && (
+                  <button onClick={selectAll} className="flex items-center justify-center min-h-[32px] p-[8px] rounded-[4px]">
+                    <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-[18px] whitespace-nowrap">Select all</span>
+                  </button>
+                )}
               </>
             )}
           </div>
@@ -888,17 +895,21 @@ export default function SearchResultsPage() {
               </div>
               <ChevronDown size={16} color="#646464" strokeWidth={1.5} />
             </button>
-            <button className="border border-[#1b55f5] flex gap-[6px] items-center justify-center min-h-[32px] p-[8px] rounded-[4px] shrink-0">
-              <RectangleHorizontal size={16} color="#1b55f5" strokeWidth={1.5} />
-              <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1b55f5] text-[14px] leading-[18px] whitespace-nowrap">Collapse assets</span>
-            </button>
-            <div className="border border-[#e4e4e4] flex items-start rounded-[4px] shrink-0">
-              {[AlignJustify, Columns3, Grid2x2, LayoutGrid].map((Icon, i) => (
-                <button key={i} className={`flex items-center justify-center p-[8px] rounded-[4px] ${i === 3 ? "bg-[#1b55f5]" : "hover:bg-[#f8f8f8]"}`}>
-                  <Icon size={16} color={i === 3 ? "white" : "#1e1e1e"} strokeWidth={1.5} />
+            {activeTab !== "portals" && (
+              <>
+                <button className="border border-[#1b55f5] flex gap-[6px] items-center justify-center min-h-[32px] p-[8px] rounded-[4px] shrink-0">
+                  <RectangleHorizontal size={16} color="#1b55f5" strokeWidth={1.5} />
+                  <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1b55f5] text-[14px] leading-[18px] whitespace-nowrap">Collapse assets</span>
                 </button>
-              ))}
-            </div>
+                <div className="border border-[#e4e4e4] flex items-start rounded-[4px] shrink-0">
+                  {[AlignJustify, Columns3, Grid2x2, LayoutGrid].map((Icon, i) => (
+                    <button key={i} className={`flex items-center justify-center p-[8px] rounded-[4px] ${i === 3 ? "bg-[#1b55f5]" : "hover:bg-[#f8f8f8]"}`}>
+                      <Icon size={16} color={i === 3 ? "white" : "#1e1e1e"} strokeWidth={1.5} />
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -946,13 +957,13 @@ export default function SearchResultsPage() {
 
         {/* ── Portals tab ── */}
         {activeTab === "portals" && (
-          <div className="flex flex-wrap gap-[16px] items-start w-full">
+          <div className="content-start flex flex-wrap gap-[16px] w-full">
             {Array.from({ length: PORTALS_COUNT }).map((_, i) => (
-              <div key={i} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px]">
+              <div key={i} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px] cursor-pointer hover:shadow-[0_2px_12px_rgba(30,30,30,0.1)] transition-shadow duration-150">
                 <div className="flex flex-col h-[104px] items-start justify-center shrink-0 w-[160px]">
                   <img alt="" className="h-full w-full object-cover rounded-[2px]" src={imgAsset} />
                 </div>
-                <div className="flex flex-col gap-[16px] flex-1 py-[8px] min-w-0">
+                <div className="flex flex-col justify-between flex-1 py-[16px] min-w-0 self-stretch">
                   <p style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-normal overflow-hidden text-ellipsis">
                     {PORTALS[i % PORTALS.length].title}
                   </p>
