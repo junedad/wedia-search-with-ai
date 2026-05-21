@@ -265,50 +265,50 @@ interface TabsRowProps {
 
 function TabsRow({ activeTab, onTabChange, classicCount, smartCount, portalsCount }: TabsRowProps) {
   return (
-    <div className="flex items-end w-full border-b border-[#e4e4e4]">
+    <div className="flex gap-[24px] items-end w-full border-b border-[#e4e4e4]">
       {/* Classic tab */}
       <button
         onClick={() => onTabChange("classic")}
-        className="flex items-center gap-[8px] px-[4px] pb-[10px] mr-[24px] relative"
-        style={{ borderBottom: activeTab === "classic" ? "2px solid #1b55f5" : "2px solid transparent", marginBottom: -1 }}
+        className="flex items-center gap-[8px] h-[48px] py-[16px] shrink-0 relative"
+        style={{ borderBottom: activeTab === "classic" ? "2px solid #3377ff" : "2px solid transparent", marginBottom: -1 }}
       >
         <span
-          style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700, color: activeTab === "classic" ? "#1e1e1e" : "#949494" }}
-          className="text-[16px] leading-[20px] whitespace-nowrap transition-colors"
+          style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700, fontSize: 14, color: activeTab === "classic" ? "#1e1e1e" : "#646464" }}
+          className="leading-[18px] whitespace-nowrap transition-colors"
         >
           Classic search
         </span>
         <span
-          className="text-[12px] leading-[15px] px-[6px] py-[4px] rounded-full"
+          className="h-[18px] flex items-center justify-center px-[6px] py-[4px] rounded-full text-[12px] leading-[15px]"
           style={{
             fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500,
-            background: activeTab === "classic" ? "#e4e4e4" : "#f0f0f0",
-            color: activeTab === "classic" ? "#1e1e1e" : "#949494",
+            background: "#e4e4e4",
+            color: activeTab === "classic" ? "#1e1e1e" : "#646464",
           }}
         >
           {classicCount}
         </span>
       </button>
 
-      {/* Smart Search tab */}
+      {/* Smart search tab */}
       <button
         onClick={() => onTabChange("smart")}
-        className="flex items-center gap-[6px] px-[4px] pb-[10px] mr-[24px] relative"
-        style={{ borderBottom: activeTab === "smart" ? `2px solid ${PURPLE}` : "2px solid transparent", marginBottom: -1 }}
+        className="flex items-center gap-[8px] h-[48px] py-[16px] shrink-0 relative"
+        style={{ borderBottom: activeTab === "smart" ? "2px solid #9b63ef" : "2px solid transparent", marginBottom: -1 }}
       >
-        <SmartSearchIcon color={activeTab === "smart" ? PURPLE : PURPLE_LIGHT} size={14} />
+        <SmartSearchIcon color={activeTab === "smart" ? "#310c5f" : PURPLE_LIGHT} size={16} />
         <span
-          style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700, color: activeTab === "smart" ? PURPLE : PURPLE_LIGHT }}
-          className="text-[16px] leading-[20px] whitespace-nowrap transition-colors"
+          style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700, fontSize: 14, color: activeTab === "smart" ? "#310c5f" : PURPLE_LIGHT }}
+          className="leading-[18px] whitespace-nowrap transition-colors"
         >
-          Smart Search
+          Smart search
         </span>
         <span
-          className="text-[12px] leading-[15px] px-[6px] py-[4px] rounded-full"
+          className="h-[18px] flex items-center justify-center px-[6px] py-[4px] rounded-full text-[12px] leading-[15px]"
           style={{
             fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500,
-            background: activeTab === "smart" ? PURPLE : "#d1b8fa",
-            color: "white",
+            background: activeTab === "smart" ? "#d1b8fa" : "#e5d7fd",
+            color: activeTab === "smart" ? "#1e1e1e" : "#9b63ef",
           }}
         >
           {smartCount}
@@ -318,21 +318,21 @@ function TabsRow({ activeTab, onTabChange, classicCount, smartCount, portalsCoun
       {/* Portals tab */}
       <button
         onClick={() => onTabChange("portals")}
-        className="flex items-center gap-[8px] px-[4px] pb-[10px] relative"
-        style={{ borderBottom: activeTab === "portals" ? "2px solid #1b55f5" : "2px solid transparent", marginBottom: -1 }}
+        className="flex items-center gap-[8px] h-[48px] py-[16px] shrink-0 relative"
+        style={{ borderBottom: activeTab === "portals" ? "2px solid #3377ff" : "2px solid transparent", marginBottom: -1 }}
       >
         <span
-          style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700, color: activeTab === "portals" ? "#1e1e1e" : "#949494" }}
-          className="text-[16px] leading-[20px] whitespace-nowrap transition-colors"
+          style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700, fontSize: 14, color: activeTab === "portals" ? "#1e1e1e" : "#646464" }}
+          className="leading-[18px] whitespace-nowrap transition-colors"
         >
           Portals
         </span>
         <span
-          className="text-[12px] leading-[15px] px-[6px] py-[4px] rounded-full"
+          className="h-[18px] flex items-center justify-center px-[6px] py-[4px] rounded-full text-[12px] leading-[15px]"
           style={{
             fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500,
-            background: activeTab === "portals" ? "#e4e4e4" : "#f0f0f0",
-            color: activeTab === "portals" ? "#1e1e1e" : "#949494",
+            background: "#e4e4e4",
+            color: activeTab === "portals" ? "#1e1e1e" : "#646464",
           }}
         >
           {portalsCount}
