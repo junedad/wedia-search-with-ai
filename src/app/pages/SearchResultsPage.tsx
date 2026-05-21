@@ -218,15 +218,15 @@ function FilterBar({ activeFilters, onFilterClick, onRemoveFilter, onClearFilter
   return (
     <div className="flex flex-col items-start w-full shrink-0">
       {/* Filter pills row */}
-      <div className="flex gap-[16px] items-center w-full pb-[16px]">
+      <div className="flex gap-[8px] items-start w-full pb-[16px] flex-wrap">
         <button className="border border-[#e4e4e4] flex gap-[6px] items-center justify-center min-h-[32px] p-[8px] rounded-[4px] shrink-0 hover:border-[#1b55f5] transition-colors">
           <SlidersHorizontal size={16} color="#1e1e1e" strokeWidth={1.5} />
           <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1e1e1e] text-[14px] leading-[18px] whitespace-nowrap">Advanced search</span>
         </button>
-        <div className="flex flex-col items-start justify-center shrink-0">
+        <div className="flex flex-col items-start justify-center shrink-0 self-center">
           <div className="h-[20px] w-px bg-[#e4e4e4]" />
         </div>
-        <div className="flex flex-1 gap-[8px] items-center overflow-hidden">
+        <div className="flex flex-1 flex-wrap gap-[8px] items-center min-w-0">
           {FILTERS.map((f) => <FilterPill key={f} label={f} onClick={() => onFilterClick(f)} />)}
         </div>
         <button className="border border-[#e4e4e4] flex gap-[6px] items-center justify-center min-h-[32px] p-[8px] rounded-[4px] shrink-0 hover:border-[#1b55f5] transition-colors">
@@ -413,19 +413,14 @@ const BANNER_ASSETS = [imgAsset2, imgAsset3, imgAsset4, imgAsset5, imgAsset6, im
 function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
   return (
     <div
-      className="w-full rounded-[8px] overflow-hidden cursor-pointer transition-shadow duration-200 hover:shadow-[0_4px_20px_rgba(129,61,224,0.15)]"
+      className="w-full rounded-[8px] overflow-hidden"
       style={{ background: "linear-gradient(110.53deg, rgba(252,224,254,0.6) 0.21%, rgba(219,228,253,0.6) 69.27%), white" }}
-      onClick={onSeeAll}
     >
       <div className="flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
-        {/* Left: 6 asset thumbnails 126×126px */}
+        {/* Left: 3 asset thumbnails 126×126px */}
         <div className="flex gap-[8px] items-center shrink-0">
-          {BANNER_ASSETS.map((src, i) => (
-            <div
-              key={i}
-              className="rounded-[4px] overflow-hidden shrink-0 transition-transform duration-200 hover:scale-[1.03]"
-              style={{ width: 126, height: 126 }}
-            >
+          {BANNER_ASSETS.slice(0, 3).map((src, i) => (
+            <div key={i} className="rounded-[4px] overflow-hidden shrink-0" style={{ width: 126, height: 126 }}>
               <img alt="" src={src} className="w-full h-full object-cover block" />
             </div>
           ))}
@@ -434,7 +429,7 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
         {/* Right: text + button */}
         <div className="flex flex-col gap-[20px] flex-1 min-w-0">
           <div className="flex flex-col gap-[12px]">
-            <div className="flex items-center gap-[12px]">
+            <div className="flex items-center gap-[8px]">
               <SmartSearchIcon color="#1e1e1e" size={16} />
               <span style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-[20px] whitespace-nowrap">Smart search results</span>
               <div className="flex items-center gap-[8px] shrink-0">
@@ -447,8 +442,8 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
             </p>
           </div>
           <button
-            onClick={(e) => { e.stopPropagation(); onSeeAll(); }}
-            className="flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start transition-colors duration-150 hover:bg-[#f0f0f0]"
+            onClick={onSeeAll}
+            className="flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start hover:opacity-80 transition-opacity"
             style={{ border: "1px solid #e4e4e4", color: "#1e1e1e", fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
           >
             <span className="text-[14px] leading-[18px] whitespace-nowrap">See all results</span>
