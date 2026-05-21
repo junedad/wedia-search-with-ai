@@ -388,12 +388,16 @@ function PortalsBanner() {
           <div key={p.title} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px] cursor-pointer hover:shadow-[0_2px_12px_rgba(30,30,30,0.1)] transition-shadow duration-150">
             {/* Thumbnail */}
             <div className="flex flex-col h-[104px] items-start justify-center shrink-0 w-[160px]">
-              <img alt="" className="h-full w-full object-cover rounded-[2px]" src={imgAsset} />
+              <img alt="" className="h-full w-full object-cover rounded-[2px] flex-1 min-h-0" src={imgAsset} />
             </div>
-            {/* Info */}
-            <div className="flex flex-col justify-between flex-1 py-[16px] min-w-0 self-stretch">
-              <p style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-normal overflow-hidden text-ellipsis">{p.title}</p>
-              <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-normal whitespace-nowrap">{p.count} assets</p>
+            {/* Info wrapper */}
+            <div className="flex flex-[1_0_0] flex-row items-center self-stretch min-w-0">
+              <div className="flex flex-[1_0_0] flex-col h-full items-start justify-between min-w-0 py-[16px]" style={{ wordBreak: "break-word" }}>
+                <p style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-[20px] overflow-hidden text-ellipsis w-[min-content] min-w-full shrink-0">{p.title}</p>
+                <div className="flex flex-col justify-center shrink-0">
+                  <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-[18px] whitespace-nowrap">{p.count} assets</p>
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -501,21 +505,21 @@ interface StickySmartCardProps {
 
 function StickySmartCard({ query, onTrySmartSearch }: StickySmartCardProps) {
   return (
-    <div className="fixed bottom-[24px] right-[16px] sm:right-[40px] lg:right-[80px] z-10 flex gap-[12px] items-center">
+    <div className="fixed bottom-[16px] right-[20px] z-10 flex gap-[12px] items-center">
       {/* Pill card */}
       <button
         onClick={onTrySmartSearch}
         className="flex gap-[8px] h-[40px] items-center px-[12px] py-[8px] rounded-[4px] shrink-0 hover:opacity-90 transition-opacity max-w-[340px]"
         style={{ backgroundImage: "linear-gradient(116.778deg, rgba(219,228,253,0.6) 0.21%, rgba(252,224,254,0.6) 69.27%), linear-gradient(90deg, white, white)" }}
       >
-        <SmartSearchIcon color="#310c5f" size={14} />
+        <SmartSearchIcon color="#9b63ef" size={14} />
         <span
           className="overflow-hidden text-ellipsis whitespace-nowrap text-[12px] leading-[15px] text-[#310c5f] min-w-0"
           style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
         >
           248 smart results for "{query || "your search"}"
         </span>
-        <ChevronRight size={14} color="#310c5f" strokeWidth={1.5} className="shrink-0" />
+        <ChevronRight size={16} color="#310c5f" strokeWidth={1.5} className="shrink-0" />
       </button>
 
       {/* Back to top */}
@@ -987,15 +991,19 @@ export default function SearchResultsPage() {
             {Array.from({ length: PORTALS_COUNT }).map((_, i) => (
               <div key={i} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px] cursor-pointer hover:shadow-[0_2px_12px_rgba(30,30,30,0.1)] transition-shadow duration-150">
                 <div className="flex flex-col h-[104px] items-start justify-center shrink-0 w-[160px]">
-                  <img alt="" className="h-full w-full object-cover rounded-[2px]" src={imgAsset} />
+                  <img alt="" className="h-full w-full object-cover rounded-[2px] flex-1 min-h-0" src={imgAsset} />
                 </div>
-                <div className="flex flex-col justify-between flex-1 py-[16px] min-w-0 self-stretch">
-                  <p style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-normal overflow-hidden text-ellipsis">
-                    {PORTALS[i % PORTALS.length].title}
-                  </p>
-                  <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-normal whitespace-nowrap">
-                    {PORTALS[i % PORTALS.length].count} assets
-                  </p>
+                <div className="flex flex-[1_0_0] flex-row items-center self-stretch min-w-0">
+                  <div className="flex flex-[1_0_0] flex-col h-full items-start justify-between min-w-0 py-[16px]" style={{ wordBreak: "break-word" }}>
+                    <p style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-[20px] overflow-hidden text-ellipsis w-[min-content] min-w-full shrink-0">
+                      {PORTALS[i % PORTALS.length].title}
+                    </p>
+                    <div className="flex flex-col justify-center shrink-0">
+                      <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#949494] text-[14px] leading-[18px] whitespace-nowrap">
+                        {PORTALS[i % PORTALS.length].count} assets
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
