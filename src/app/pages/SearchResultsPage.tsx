@@ -420,7 +420,6 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
   React.useEffect(() => {
     const el = bannerRef.current;
     if (!el) return;
-    // pl(12) + gap(28) + pr(20) + minimum text section width
     const TEXT_MIN = 280;
     const CHROME = 12 + 28 + 20 + TEXT_MIN;
     const update = () => {
@@ -438,7 +437,7 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
     <div
       ref={bannerRef}
       className="w-full rounded-[8px] overflow-hidden"
-      style={{ background: "linear-gradient(110.53deg, rgba(252,224,254,0.6) 0.21%, rgba(219,228,253,0.6) 69.27%), white" }}
+      style={{ background: "linear-gradient(110.326deg, rgba(219,228,253,0.6) 6.135%, rgba(252,224,254,0.6) 38.696%, rgba(219,228,253,0.6) 87.749%), white" }}
     >
       <div className="flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
         {/* Left: asset thumbnails 126×126px — count computed from available width */}
@@ -454,11 +453,11 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
         <div className="flex flex-col gap-[20px] flex-1 min-w-0">
           <div className="flex flex-col gap-[12px]">
             <div className="flex items-center gap-[8px]">
-              <SmartSearchIcon color="#1e1e1e" size={16} />
-              <span style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#1e1e1e] text-[16px] leading-[20px] whitespace-nowrap">Smart search results</span>
+              <SmartSearchIcon color="#310c5f" size={16} />
+              <span style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#310c5f] text-[16px] leading-[20px] whitespace-nowrap">Smart search results</span>
               <div className="flex items-center gap-[8px] shrink-0">
-                <span className="bg-white text-[12px] px-[6px] py-[4px] rounded-full text-[#1e1e1e] leading-[15px]" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>{SMART_COUNT}</span>
-                <ChevronRight size={16} color="#1e1e1e" strokeWidth={1.5} />
+                <span className="bg-[#d1b8fa] text-[12px] px-[6px] py-[4px] rounded-full text-[#1e1e1e] leading-[15px]" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>{SMART_COUNT}</span>
+                <ChevronRight size={16} color="#310c5f" strokeWidth={1.5} />
               </div>
             </div>
             <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#646464] text-[14px] leading-[18px] whitespace-nowrap">
@@ -467,11 +466,11 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
           </div>
           <button
             onClick={onSeeAll}
-            className="flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start hover:opacity-80 transition-opacity"
-            style={{ border: "1px solid #e4e4e4", color: "#1e1e1e", fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
+            className="group flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start transition-colors duration-150 hover:bg-[#310c5f] hover:border-[#310c5f]"
+            style={{ border: "1px solid #d1b8fa", color: "#310c5f", fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
           >
-            <span className="text-[14px] leading-[18px] whitespace-nowrap">See all results</span>
-            <ArrowRight size={16} strokeWidth={1.5} />
+            <span className="text-[14px] leading-[18px] whitespace-nowrap group-hover:text-white transition-colors duration-150">See all results</span>
+            <ArrowRight size={16} strokeWidth={1.5} className="group-hover:text-white transition-colors duration-150" />
           </button>
         </div>
       </div>
@@ -488,38 +487,20 @@ interface StickySmartCardProps {
 
 function StickySmartCard({ query, onTrySmartSearch }: StickySmartCardProps) {
   return (
-    <div className="fixed bottom-[24px] right-[16px] sm:right-[40px] lg:right-[80px] z-10 flex gap-[12px] items-center">
-      {/* Gradient AI card */}
+    <div className="fixed bottom-[24px] right-[16px] sm:right-[40px] lg:right-[80px] z-10 max-w-[420px]">
       <button
         onClick={onTrySmartSearch}
-        className="flex flex-col items-start p-[8px] rounded-[4px] shrink-0 hover:opacity-90 transition-opacity shadow-[0_4px_16px_rgba(30,30,30,0.12)]"
-        style={{ backgroundImage: "linear-gradient(108.53deg, rgb(219,228,253) 0.23%, rgb(252,224,254) 100%)" }}
+        className="flex gap-[8px] items-center px-[12px] py-[8px] rounded-[4px] w-full shadow-[0_4px_16px_rgba(30,30,30,0.12)] hover:opacity-90 transition-opacity"
+        style={{ backgroundImage: "linear-gradient(117.771deg, rgba(219,228,253,0.6) 0.21%, rgba(252,224,254,0.6) 69.27%), linear-gradient(90deg, white, white)" }}
       >
-        <div className="flex gap-[12px] items-center shrink-0 w-full">
-          <div
-            className="flex items-center justify-center rounded-[4px] shrink-0 size-[28px]"
-            style={{ backgroundImage: "linear-gradient(92.75deg, rgba(27,85,245,0.16) 0.23%, rgba(247,62,246,0.16) 100%)" }}
-          >
-            <img src={imgSmartSearchIcon} alt="" className="size-[16px]" />
-          </div>
-          <div className="flex flex-col items-start py-[4px] shrink-0">
-            <div className="flex gap-[8px] items-center">
-              <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#1e1e1e] text-[12px] leading-[15px] whitespace-nowrap">
-                248 AI search results for "{query || "your search"}"
-              </span>
-              <ChevronRight size={16} color="#1e1e1e" strokeWidth={1.5} />
-            </div>
-          </div>
-        </div>
-      </button>
-
-      {/* Back to top */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="bg-white flex items-center justify-center rounded-full shrink-0 size-[36px] hover:bg-[#f8f8f8] transition-colors"
-        style={{ filter: "drop-shadow(-5px 10px 12.5px rgba(30,30,30,0.1))" }}
-      >
-        <ArrowRight size={20} color="#1e1e1e" strokeWidth={1.5} className="-rotate-90" />
+        <SmartSearchIcon color="#310c5f" size={14} />
+        <span
+          className="overflow-hidden text-ellipsis whitespace-nowrap text-[12px] leading-[15px] text-[#310c5f] min-w-0 flex-1"
+          style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
+        >
+          248 AI search results for "{query || "your search"}"
+        </span>
+        <ChevronRight size={14} color="#310c5f" strokeWidth={1.5} className="shrink-0" />
       </button>
     </div>
   );
