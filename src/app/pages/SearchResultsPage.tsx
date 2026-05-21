@@ -987,9 +987,9 @@ export default function SearchResultsPage() {
 
         {/* ── Portals tab ── */}
         {activeTab === "portals" && (
-          <div className="content-start flex flex-wrap gap-[16px] w-full">
+          <div className="w-full" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 380px), 1fr))", gap: 16 }}>
             {Array.from({ length: PORTALS_COUNT }).map((_, i) => (
-              <div key={i} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] shrink-0 w-[416px] cursor-pointer hover:shadow-[0_2px_12px_rgba(30,30,30,0.1)] transition-shadow duration-150">
+              <div key={i} className="bg-white flex gap-[24px] items-center pl-[8px] pr-[24px] py-[8px] rounded-[4px] w-full cursor-pointer hover:shadow-[0_2px_12px_rgba(30,30,30,0.1)] transition-shadow duration-150">
                 <div className="flex flex-col h-[104px] items-start justify-center shrink-0 w-[160px]">
                   <img alt="" className="h-full w-full object-cover rounded-[2px] flex-1 min-h-0" src={imgAsset} />
                 </div>
