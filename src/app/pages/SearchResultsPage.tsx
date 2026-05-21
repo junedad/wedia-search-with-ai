@@ -433,13 +433,26 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
     return () => obs.disconnect();
   }, []);
 
+  const [hovered, setHovered] = React.useState(false);
+
   return (
     <div
       ref={bannerRef}
-      className="w-full rounded-[8px] overflow-hidden"
-      style={{ background: "linear-gradient(110.326deg, rgba(219,228,253,0.6) 6.135%, rgba(252,224,254,0.6) 38.696%, rgba(219,228,253,0.6) 87.749%), white" }}
+      className="w-full rounded-[8px] overflow-hidden relative bg-white cursor-pointer"
+      onClick={onSeeAll}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
+      {/* Gradient overlay — opacity 60% default, 80% on hover */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-150 rounded-[8px]"
+        style={{
+          background: "linear-gradient(110.326deg, rgb(219,228,253) 6.135%, rgb(252,224,254) 38.696%, rgb(219,228,253) 87.749%)",
+          opacity: hovered ? 0.8 : 0.6,
+        }}
+      />
+
+      <div className="relative flex items-center gap-[28px] pl-[12px] pr-[20px] py-[12px]">
         {/* Left: asset thumbnails 126×126px — count computed from available width */}
         <div className="flex gap-[8px] items-center shrink-0">
           {BANNER_ASSETS.slice(0, visibleCount).map((src, i) => (
@@ -453,25 +466,26 @@ function SmartSearchBanner({ onSeeAll }: SmartSearchBannerProps) {
         <div className="flex flex-col gap-[20px] flex-1 min-w-0">
           <div className="flex flex-col gap-[12px]">
             <div className="flex items-center gap-[8px]">
-              <SmartSearchIcon color="#310c5f" size={16} />
+              <SmartSearchIcon color="#9b63ef" size={16} />
               <span style={{ fontFamily: "'Satoshi-Bold', sans-serif", fontWeight: 700 }} className="text-[#310c5f] text-[16px] leading-[20px] whitespace-nowrap">Smart search results</span>
-              <div className="flex items-center gap-[8px] shrink-0">
-                <span className="bg-[#d1b8fa] text-[12px] px-[6px] py-[4px] rounded-full text-[#1e1e1e] leading-[15px]" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>{SMART_COUNT}</span>
-                <ChevronRight size={16} color="#310c5f" strokeWidth={1.5} />
-              </div>
+              <span className="bg-[#d1b8fa] text-[12px] px-[6px] py-[4px] rounded-full text-[#1e1e1e] leading-[15px] shrink-0" style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}>{SMART_COUNT}</span>
             </div>
             <p style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }} className="text-[#646464] text-[14px] leading-[18px] whitespace-nowrap">
               Visual and semantic similarity based search
             </p>
           </div>
-          <button
-            onClick={onSeeAll}
-            className="group flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start transition-colors duration-150 hover:bg-[#310c5f] hover:border-[#310c5f]"
-            style={{ border: "1px solid #d1b8fa", color: "#310c5f", fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
+          {/* Button — visual hover driven by parent hovered state */}
+          <div
+            className="flex items-center gap-[6px] px-[8px] py-[8px] rounded-[4px] self-start transition-colors duration-150"
+            style={{
+              border: "1px solid #d1b8fa",
+              background: hovered ? "#310c5f" : "transparent",
+              borderColor: hovered ? "#310c5f" : "#d1b8fa",
+            }}
           >
-            <span className="text-[14px] leading-[18px] whitespace-nowrap group-hover:text-white transition-colors duration-150">See all results</span>
-            <ArrowRight size={16} strokeWidth={1.5} className="group-hover:text-white transition-colors duration-150" />
-          </button>
+            <span style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500, color: hovered ? "white" : "#310c5f" }} className="text-[14px] leading-[18px] whitespace-nowrap transition-colors duration-150">See all results</span>
+            <ArrowRight size={16} strokeWidth={1.5} style={{ color: hovered ? "white" : "#310c5f" }} className="transition-colors duration-150" />
+          </div>
         </div>
       </div>
     </div>
