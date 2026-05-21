@@ -501,20 +501,30 @@ interface StickySmartCardProps {
 
 function StickySmartCard({ query, onTrySmartSearch }: StickySmartCardProps) {
   return (
-    <div className="fixed bottom-[24px] right-[16px] sm:right-[40px] lg:right-[80px] z-10 max-w-[420px]">
+    <div className="fixed bottom-[24px] right-[16px] sm:right-[40px] lg:right-[80px] z-10 flex gap-[12px] items-center">
+      {/* Pill card */}
       <button
         onClick={onTrySmartSearch}
-        className="flex gap-[8px] items-center px-[12px] py-[8px] rounded-[4px] w-full shadow-[0_4px_16px_rgba(30,30,30,0.12)] hover:opacity-90 transition-opacity"
-        style={{ backgroundImage: "linear-gradient(117.771deg, rgba(219,228,253,0.6) 0.21%, rgba(252,224,254,0.6) 69.27%), linear-gradient(90deg, white, white)" }}
+        className="flex gap-[8px] h-[40px] items-center px-[12px] py-[8px] rounded-[4px] shrink-0 hover:opacity-90 transition-opacity max-w-[340px]"
+        style={{ backgroundImage: "linear-gradient(116.778deg, rgba(219,228,253,0.6) 0.21%, rgba(252,224,254,0.6) 69.27%), linear-gradient(90deg, white, white)" }}
       >
         <SmartSearchIcon color="#310c5f" size={14} />
         <span
-          className="overflow-hidden text-ellipsis whitespace-nowrap text-[12px] leading-[15px] text-[#310c5f] min-w-0 flex-1"
+          className="overflow-hidden text-ellipsis whitespace-nowrap text-[12px] leading-[15px] text-[#310c5f] min-w-0"
           style={{ fontFamily: "'Satoshi-Medium', sans-serif", fontWeight: 500 }}
         >
-          248 AI search results for "{query || "your search"}"
+          248 smart results for "{query || "your search"}"
         </span>
         <ChevronRight size={14} color="#310c5f" strokeWidth={1.5} className="shrink-0" />
+      </button>
+
+      {/* Back to top */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="bg-white flex items-center justify-center rounded-full shrink-0 size-[40px] hover:bg-[#f8f8f8] transition-colors"
+        style={{ filter: "drop-shadow(-5px 10px 12.5px rgba(30,30,30,0.1))" }}
+      >
+        <ArrowRight size={20} color="#1e1e1e" strokeWidth={1.5} className="-rotate-90" />
       </button>
     </div>
   );
