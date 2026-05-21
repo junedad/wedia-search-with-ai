@@ -5,7 +5,6 @@ import {
   SlidersHorizontal, Star, AlignJustify, Columns3, Grid2x2, LayoutGrid,
   RectangleHorizontal, Check, Plus, Ellipsis, Pencil, Flag, Copy,
   CornerUpRight, Trash2, ChevronRight, ArrowRight, RefreshCw, GripVertical,
-  Sparkles,
 } from "lucide-react";
 import svgPaths from "../../imports/DesktopWorkspacesInsideAWorkspaceAssetSelected/svg-qymjkh6ysf";
 import imgAsset from "../../imports/HomePage/asset-placeholder.jpg";
@@ -33,7 +32,11 @@ const PURPLE_LIGHT = "#b48af6";
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
 function SmartSearchIcon({ color = "#1E1E1E", size = 14 }: { color?: string; size?: number }) {
-  return <Sparkles size={size} color={color} strokeWidth={1.5} className="shrink-0" fill={color} />;
+  return (
+    <svg width={size} height={size} viewBox="0 0 13.125 12.95" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+      <path d="M10.15 1.575L10.85 0L11.55 1.575L13.125 2.275L11.55 2.975L10.85 4.55L10.15 2.975L8.575 2.275L10.15 1.575ZM3.15 5.075L4.55 1.925L5.95 5.075L9.1 6.475L5.95 7.875L4.55 11.025L3.15 7.875L0 6.475L3.15 5.075ZM10.15 8.4L10.85 9.975L12.425 10.675L10.85 11.375L10.15 12.95L9.45 11.375L7.875 10.675L9.45 9.975L10.15 8.4Z" fill={color} />
+    </svg>
+  );
 }
 
 function Logo() {
